@@ -1,0 +1,3 @@
+---
+tsconfig: "./tsconfig.doc.json"
+name: np-Monolith

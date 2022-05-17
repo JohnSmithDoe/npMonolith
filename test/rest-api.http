@@ -1,0 +1,27 @@
+### Who am I
+GET http://localhost:3000/auth/whoami
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTkzODg3OSwiZXhwIjoxNjUxOTM5MjM5fQ.NmB74d9GqNPwQ6xDuszBJzY7X01LYIcZw7xKrHyQ4q4
+Accept: application/json
+
+### Log me out
+GET http://localhost:3000/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTkzODg3OSwiZXhwIjoxNjUxOTM5MjM5fQ.NmB74d9GqNPwQ6xDuszBJzY7X01LYIcZw7xKrHyQ4q4
+Accept: application/json
+
+### Register me
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "email" : "test@test.de",
+  "password": "helloworld"
+}
+
+### Log me in
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email" : "test@test.de",
+  "password": "helloworld"
+}

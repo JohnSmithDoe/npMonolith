@@ -2,7 +2,7 @@ import { registerAs } from '@nestjs/config';
 import { IAuthModuleOptions } from '@nestjs/passport';
 import { SessionOptions } from 'express-session';
 import { isProduction } from '../../../common/utils';
-import { typedProcessEnv } from '../config.types';
+import { process_env } from '../config.utils';
 
 export type TAuthOptions = {
   authStrategyOptions: {
@@ -23,7 +23,7 @@ export default registerAs(CCONFIG_KEY_AUTH, (): TAuthOptions => {
       session: true,
     },
     authSessionOptions: {
-      secret: typedProcessEnv().APP_SESSION_SECRET,
+      secret: process_env('APP_SESSION_SECRET'),
       resave: true,
       saveUninitialized: true,
       cookie: { httpOnly: true, sameSite: 'strict', secure: isProduction() },

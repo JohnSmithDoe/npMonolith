@@ -1,9 +1,9 @@
 branches:
-  - master
+  - release
   - name: alpha
     prerelease: true
-debug: true
-ci: false
+debug: false
+ci: true
 dryRun: false
 plugins:
 - - "@semantic-release/commit-analyzer"

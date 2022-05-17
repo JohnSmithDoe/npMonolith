@@ -1,7 +1,8 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { isDevelopment } from '../../../common/utils';
-import { typedProcessEnv } from '../config.types';
+import { ESupportedDBTypes } from '../config.types';
+import { process_env } from '../config.utils';
 
 export type TConnectionOptions = TypeOrmModuleOptions;
 
@@ -15,8 +16,8 @@ export default registerAs(CCONFIG_KEY_ORM, (): TypeOrmModuleOptions => {
   return {
     synchronize: isDevelopment(),
     migrations: [CORM_MIGRATIONS_FILES],
-    type: typedProcessEnv().DB_TYPE,
-    database: typedProcessEnv().DB_NAME,
+    type: process_env('DB_TYPE') as ESupportedDBTypes,
+    database: process_env('DB_NAME'),
     entities: CORM_ENTITIES,
     migrationsRun: !isDevelopment(),
     cli: {

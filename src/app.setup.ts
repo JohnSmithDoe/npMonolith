@@ -2,8 +2,8 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { EntityNotFoundFilter } from './common/filters/entity-not-found.filter';
-import { isDevelopment } from './common/utils';
 import { ConfigService } from './modules/config/config.service';
+import { process_env } from './modules/config/config.utils';
 
 function setupSwagger(app: INestApplication) {
   const config = new DocumentBuilder()
@@ -28,7 +28,7 @@ export function setupApplication(
   app: INestApplication,
   config?: ConfigService,
 ) {
-  if (isDevelopment()) {
+  if (process_env('SERVE_API')) {
     setupSwagger(app);
   }
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));

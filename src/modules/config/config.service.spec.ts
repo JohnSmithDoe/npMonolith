@@ -47,7 +47,7 @@ describe('ConfigService', () => {
       APP_SESSION_SECRET: 'asdfasdf',
       DB_TYPE: ESupportedDBTypes.sqlite,
       NODE_ENV: ENODE_ENV.Test,
-      DOC_PATH: 'documentation',
+      SERVE_DOC_PATH: 'documentation',
     };
     expect(() => validate(<any>config)).not.toThrow(
       /An instance of EnvironmentVariables has failed the validation/g,

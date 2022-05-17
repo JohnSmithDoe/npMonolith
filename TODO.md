@@ -1,6 +1,5 @@
 ## Todos
 
-* Commit and push
 * Full Documentation
 * Error-Handling
 * Users-Module

@@ -1,5 +1,6 @@
-import { Expose, plainToClass } from 'class-transformer';
+import { Expose, plainToClass, Transform } from 'class-transformer';
 import {
+  IsBoolean,
   IsEnum,
   IsNumber,
   IsOptional,
@@ -20,6 +21,7 @@ class EnvironmentVariables implements IEnvironmentVariables {
 
   @Expose()
   @IsNumber()
+  @Transform(({ value }) => +value)
   APP_PORT: number;
 
   @Expose()
@@ -36,11 +38,24 @@ class EnvironmentVariables implements IEnvironmentVariables {
 
   @Expose()
   @IsOptional()
-  DOC_PATH: string | 'undefined';
+  @IsBoolean()
+  @Transform(({ value }) => !(value === 'false'))
+  SERVE_DOC: boolean;
 
   @Expose()
   @IsOptional()
-  DOC_ROOT: string | 'undefined';
+  @IsBoolean()
+  @Transform(({ value }) => !(value === 'false'))
+  SERVE_API: boolean;
+
+  @Expose()
+  @IsOptional()
+  @IsString()
+  SERVE_DOC_PATH?: string;
+
+  @Expose()
+  @IsOptional()
+  SERVE_DOC_ROOT?: string;
 }
 
 export function validate(config: Record<string, unknown>) {

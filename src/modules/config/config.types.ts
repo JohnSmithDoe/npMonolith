@@ -18,8 +18,12 @@ export interface IEnvironmentVariables {
   APP_SESSION_SECRET: string;
   APP_PORT: number;
   DB_NAME: string;
-  DOC_PATH?: string | 'undefined';
-  DOC_ROOT?: string | 'undefined';
+
+  SERVE_DOC?: boolean;
+  SERVE_DOC_PATH?: string;
+  SERVE_DOC_ROOT?: string;
+  SERVE_API?: boolean;
+
   DB_TYPE: ESupportedDBTypes;
 }
 
@@ -30,6 +34,3 @@ export interface IConfiguration extends IEnvironmentVariables {
   [CCONFIG_KEY_LOGGER]: TLoggerOptions;
   [CCONFIG_KEY_DOCS]: TDocumentationOptions;
 }
-
-export const typedProcessEnv = () =>
-  process.env as unknown as IEnvironmentVariables;

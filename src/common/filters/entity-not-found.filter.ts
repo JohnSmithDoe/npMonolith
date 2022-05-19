@@ -1,25 +1,24 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { EntityNotFoundError } from 'typeorm';
+import { HttpExceptionDto } from '../dtos/http-exception.dto';
 
-// TODO: error handling
+/**
+ * Catches all EntityNotFoundErrors
+ * and transforms them into a BAD Request Error
+ */
 @Catch(EntityNotFoundError)
 export class EntityNotFoundFilter
   implements ExceptionFilter<EntityNotFoundError>
 {
   catch(exception: EntityNotFoundError, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
-    const request = ctx.getRequest<Request>();
-    const status = HttpStatus.NOT_FOUND;
-    const { name, message } = exception;
-    // TODO: error handling ...
-    response.status(status).json({
+    const response = host.switchToHttp().getResponse<Response>();
+    const status = HttpStatus.BAD_REQUEST;
+    const data: HttpExceptionDto = {
       statusCode: status,
-      timestamp: new Date().toISOString(),
-      path: request.url,
-      name,
-      message,
-    });
+      message: exception.message,
+      error: exception.name,
+    };
+    response.status(status).json(data);
   }
 }

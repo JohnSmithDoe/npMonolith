@@ -1,16 +1,10 @@
 import { Expose, plainToClass, Transform } from 'class-transformer';
-import {
-  IsBoolean,
-  IsEnum,
-  IsNumber,
-  IsOptional,
-  IsString,
-  validateSync,
-} from 'class-validator';
+import { IsBoolean, IsEnum, IsNumber, IsOptional, IsString, validateSync } from 'class-validator';
 import { ENODE_ENV } from '../../common/consts';
 import { ESupportedDBTypes, IEnvironmentVariables } from './config.types';
 
-class EnvironmentVariables implements IEnvironmentVariables {
+/** Dto to validate the current environment variables */
+class EnvironmentVariablesDto implements IEnvironmentVariables {
   @Expose()
   @IsEnum(ENODE_ENV)
   NODE_ENV: ENODE_ENV;
@@ -58,8 +52,9 @@ class EnvironmentVariables implements IEnvironmentVariables {
   SERVE_DOC_ROOT?: string;
 }
 
+/** Uses the class-transformer and the EnvironmentVariablesDto to validate the current environment */
 export function validate(config: Record<string, unknown>) {
-  const validatedConfig = plainToClass(EnvironmentVariables, config, {
+  const validatedConfig = plainToClass(EnvironmentVariablesDto, config, {
     enableImplicitConversion: true,
     excludeExtraneousValues: true,
   });

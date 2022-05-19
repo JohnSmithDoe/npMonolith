@@ -19,12 +19,6 @@ export interface IUser {
   role: EUserRoles;
 }
 
-declare global {
-  namespace Express {
-    export interface User extends IUser {}
-  }
-}
-
 @Entity()
 export class User implements IUser {
   @PrimaryGeneratedColumn()

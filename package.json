@@ -19,10 +19,13 @@
     "test:e2e": "cross-env NODE_ENV=test jest --config ./test/jest-e2e.json --maxWorkers=1",
     "test:watch": "npm run test -- --watch",
     "test:debug": "cross-env NODE_ENV=test node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "predoc:gen": "rimraf documentation",
     "doc:gen": "npx @compodoc/compodoc",
-    "doc:serve": "npx @compodoc/compodoc -s",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
-    "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+    "doc:serve": "npm run doc:gen -- -s",
+    "doc:watch": "npm run doc:gen -- -w -s",
+    "lint": "eslint \"{src,test}/**/*.ts\" ",
+    "lint:fix": "npm run lint -- \"--fix\"",
+    "clean:up": "rimraf documentation dist coverage"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

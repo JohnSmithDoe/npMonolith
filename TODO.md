@@ -1,15 +1,15 @@
 ## Todos
 
-* Full Documentation
-* Error-Handling
+* More Logging with log level
+* Check Error-Handling for HttpExceptionFilter??
 * Users-Module
-    * Controller
-    * Testing
+  * Controller
+  * Testing
 
 * CI/CD Deploy to docker, ansible? compose?
   * semantic-release....
   * Production env
-  * Use Postgress or MariaDb
+  * Use Postgress and or MariaDb
   * Redis for session storage
   * Secure the RESTful API (helmet, csrf, cors)
   * ... what else

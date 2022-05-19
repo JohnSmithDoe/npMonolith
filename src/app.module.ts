@@ -8,6 +8,14 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule } from './modules/config/config.module';
 import { ConfigService } from './modules/config/config.service';
 
+/**
+ * AppModule imports all of the libraries used in the application
+ * * ConfigModule: Own typed config module/service
+ * * ServeStaticModule: Serve Swagger Api and CompoDoc
+ * * WinstonModule: Logging
+ * * TypeOrmModule: Database connection
+ * * AuthModule: Application authorization/authentication module
+ */
 @Module({
   imports: [
     ConfigModule,
@@ -34,8 +42,16 @@ import { ConfigService } from './modules/config/config.service';
 export class AppModule implements NestModule {
   private readonly logger: Logger = new Logger(AppModule.name);
 
+  constructor(private readonly config: ConfigService) {}
+
+  /**
+   * Adds http request logging if LOG_REQUESTS is set in environment
+   */
   configure(consumer: MiddlewareConsumer) {
-    this.logger.log('configure app module');
-    consumer.apply(RequestLoggerMiddleware).forRoutes('*');
+    this.logger.log('Configure app module');
+    if (this.config.loggerConfiguration.logRequests) {
+      this.logger.log('Configure request middleware');
+      consumer.apply(RequestLoggerMiddleware).forRoutes('*');
+    }
   }
 }

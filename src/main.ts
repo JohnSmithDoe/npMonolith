@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   const config: ConfigService = app.get<ConfigService>(ConfigService);
   setupApplication(app, config);
-  await app.listen(config.APP_PORT);
+  await app.listen(config.httpConfiguration.port);
 }
 
 // noinspection JSIgnoredPromiseFromCall

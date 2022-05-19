@@ -5,12 +5,15 @@ import { join } from 'path';
 import { __baseDir } from '../../../common/utils';
 import { process_env } from '../config.utils';
 
-export type TDocumentationOptions = ServeStaticModuleOptions[];
-
-export const CCONFIG_KEY_DOCS = 'documentation';
-
 const logger = new Logger('Documentation');
 
+/** DocumentationOptions of the application */
+export type TDocumentationOptions = ServeStaticModuleOptions[];
+
+/** DocumentationOptions key in the confguration */
+export const CCONFIG_KEY_DOCS = 'documentation';
+
+/** Registers the DocumentationOptions in the confguration */
 export default registerAs(CCONFIG_KEY_DOCS, (): TDocumentationOptions => {
   if (!!process_env('SERVE_DOC')) {
     const rootPath = process_env('SERVE_DOC_PATH') || '../documentation';

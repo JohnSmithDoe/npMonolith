@@ -4,6 +4,7 @@ import { SessionOptions } from 'express-session';
 import { isProduction } from '../../../common/utils';
 import { process_env } from '../config.utils';
 
+/** AuthorizationOptions of the application */
 export type TAuthOptions = {
   authStrategyOptions: {
     usernameField: string;
@@ -12,8 +13,10 @@ export type TAuthOptions = {
   authModuleOptions: IAuthModuleOptions;
 };
 
+/** AuthorizationOptions key in the confguration */
 export const CCONFIG_KEY_AUTH = 'auth';
 
+/** Registers the AuthorizationOptions in the confguration */
 export default registerAs(CCONFIG_KEY_AUTH, (): TAuthOptions => {
   return {
     authStrategyOptions: {

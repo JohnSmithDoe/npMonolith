@@ -4,6 +4,12 @@ import { Strategy } from 'passport-local';
 import { ConfigService } from '../../config/config.service';
 import { AuthService } from '../auth.service';
 
+/**
+ * Uses PassportStrategy and registers as the local strategy which validates
+ * the user on login / register via email and password.
+ *
+ * Is used together with the LoginGuard
+ */
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(
@@ -14,7 +20,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(email: string, password: string) {
-    // console.log('15: validate local strategy');
     return this.authService.validateUserByCredentials({ email, password });
   }
 }

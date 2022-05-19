@@ -1,30 +1,18 @@
-#### 0.0.1 (2022-05-17)
+#### 0.0.1 (2022-05-19)
 
-##### Chores
+##### Build System / Dependencies
 
-* **astaser:**  asfasd fasf asdf as (46659398)
+* **application:**  Initial NestJs Setup (cc3c7cd6)
 
-##### New Features
+##### Documentation Changes
 
-* **application:**  Initial NestJs Setupsdf (7d377ebd)
-
-#### 0.0.1 (2022-05-17)
-
-##### Chores
-
-* **astaser:**  asfasd fasf asdf as (46659398)
+* **application:**  Improved the documentation (235cf393)
 
 ##### New Features
 
-* **application:**  Initial NestJs Setupsdf (7d377ebd)
+* **application:**  Initial Modules (326fa20e)
 
-#### 0.0.1 (2022-05-17)
+##### Refactors
 
-##### Chores
-
-* **astaser:**  asfasd fasf asdf as (46659398)
-
-##### New Features
-
-* **application:**  Initial NestJs Setupsdf (7d377ebd)
+* **configuration:**  Handle Environment Variables in a better way (73202bfb)
 

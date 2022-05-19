@@ -11,6 +11,9 @@ import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { LocalStrategy } from './strategies/local.strategy';
 import { SessionSerializer } from './strategies/session.serializer';
 
+/**
+ * We use Passport and a local session strategy with email as user_id for now
+ */
 @Module({
   imports: [
     UsersModule,
@@ -36,12 +39,9 @@ import { SessionSerializer } from './strategies/session.serializer';
 export class AuthModule implements NestModule {
   private readonly logger: Logger = new Logger(AuthModule.name);
 
-  constructor(private readonly configService: ConfigService) {
-    this.logger.warn('########################');
-    // this.logger.log(configService);
-    this.logger.warn('########################');
-  }
+  constructor(private readonly configService: ConfigService) {}
 
+  /** Apply Session handling and Passport to the express handlers */
   configure(consumer: MiddlewareConsumer): any {
     const sessionOptions = this.configService.authSessionOptions;
     consumer.apply(session(sessionOptions)).forRoutes('*');

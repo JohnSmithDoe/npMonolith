@@ -1,9 +1,14 @@
-import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
+import { CallHandler, ExecutionContext, NestInterceptor, Type } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
 import { map, Observable } from 'rxjs';
-import { ClassRef } from '../types';
 
-export class SerializeRespondInterceptor<T extends ClassRef>
+/**
+ * Transforms a response according to the given Dto
+ * Usage: @UseInterceptors(new SerializeRespondInterceptor(someDto))
+ * Effect: Response data will be transformed
+ * to the given Dto {excludeExtraneousValues: true}
+ */
+export class SerializeRespondInterceptor<T extends Type>
   implements NestInterceptor
 {
   constructor(private dto: T) {}

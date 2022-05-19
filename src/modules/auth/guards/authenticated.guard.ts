@@ -1,33 +1,32 @@
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 
+/**
+ * Global Guard that prevents access to api endpoints
+ * Session based authentication
+ * To prevent the guard from blocking we can use the
+ * Public() decorator
+ * @throws UnauthorizedException if the user is not authenticated and the route is not public
+ */
 @Injectable()
 export class AuthenticatedGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
 
   async canActivate(context: ExecutionContext) {
-    // console.log('9: canActivate is authenticated 1');
+    // Check for public route metadata
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
     ]);
     if (isPublic) {
-      // console.log('9: is Public');
       return true;
     }
+    // Check if request is authenticated is valid
     const request: Express.Request = context.switchToHttp().getRequest();
     const isAuthenticated = request.isAuthenticated();
-    // console.log('Authentication Guard', request.user, request.isAuthenticated());
-
     if (!isAuthenticated) {
-      // console.log('9: can NOT Activate session auth');
-      throw new UnauthorizedException('no session auth');
+      throw new UnauthorizedException('not authenticated');
     }
     return isAuthenticated;
   }

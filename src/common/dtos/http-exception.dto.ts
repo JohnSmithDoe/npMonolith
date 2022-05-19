@@ -1,11 +1,21 @@
 import { HttpStatus } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsInt, IsString } from 'class-validator';
+import { IsEnum, IsString } from 'class-validator';
 
+/**
+ * HttpException Dto is returned if a http exception occurs
+ * TODO: exception handling
+ */
 export class HttpExceptionDto {
   @ApiProperty({ description: 'The provided http status code', example: 401 })
-  @IsInt()
+  @IsEnum(HttpStatus)
   statusCode: number;
+
+  @ApiProperty({
+    description: 'The http error as text',
+    example: 'Unauthorized',
+  })
+  error: string;
 
   @ApiProperty({
     description: 'The provided error message',
@@ -13,11 +23,4 @@ export class HttpExceptionDto {
   })
   @IsString()
   message: string;
-
-  @ApiProperty({
-    description: 'The http error as text',
-    example: 'Unauthorized',
-  })
-  @IsEnum(HttpStatus)
-  error: HttpStatus;
 }

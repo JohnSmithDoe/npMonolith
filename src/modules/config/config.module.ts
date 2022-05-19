@@ -3,13 +3,17 @@ import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import { CENV_FILE_PATH } from '../../common/consts';
 import { ConfigService } from './config.service';
 import { validate } from './config.validator';
+
 import authConfigiguration from './namespaces/auth.config';
 import documentConfiguration from './namespaces/docs.config';
-
 import httpConfiguration from './namespaces/http.config';
 import loggerConfiguration from './namespaces/logger.config';
 import connectionConfiguration from './namespaces/orm.config';
 
+/**
+ * "Overrides" the NestJs ConfigModule/ConfigService with a typed version.
+ * BEWARE: Uses the same names ConfigModule, ConfigService as NestJs
+ */
 @Global()
 @Module({
   imports: [

@@ -30,7 +30,7 @@ describe('ConfigService', () => {
     expect(configService.authSessionOptions).toBeDefined();
     expect(configService.authStratgyOptions).toBeDefined();
     expect(configService.docsConfiguration).toBeDefined();
-    expect(configService.APP_PORT).toBeDefined();
+    expect(configService.httpConfiguration.port).toBeDefined();
   });
 
   it('should not validate a wrong config', () => {

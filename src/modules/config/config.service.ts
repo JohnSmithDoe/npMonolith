@@ -2,16 +2,23 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService as NestConfigService } from '@nestjs/config';
 import { IAuthModuleOptions } from '@nestjs/passport';
 import { SessionOptions } from 'express-session';
-import { IConfiguration } from './config.types';
+import { IEnvironmentVariables } from './config.types';
 import { CCONFIG_KEY_AUTH, TAuthOptions } from './namespaces/auth.config';
-import {
-  CCONFIG_KEY_DOCS,
-  TDocumentationOptions,
-} from './namespaces/docs.config';
+import { CCONFIG_KEY_DOCS, TDocumentationOptions } from './namespaces/docs.config';
 import { CCONFIG_KEY_HTTP, THttpOptions } from './namespaces/http.config';
 import { CCONFIG_KEY_LOGGER, TLoggerOptions } from './namespaces/logger.config';
 import { CCONFIG_KEY_ORM, TConnectionOptions } from './namespaces/orm.config';
 
+/** Typed Application Configuration provided by ConfigService*/
+export interface IConfiguration extends IEnvironmentVariables {
+  [CCONFIG_KEY_HTTP]: THttpOptions;
+  [CCONFIG_KEY_AUTH]: TAuthOptions;
+  [CCONFIG_KEY_ORM]: TConnectionOptions;
+  [CCONFIG_KEY_LOGGER]: TLoggerOptions;
+  [CCONFIG_KEY_DOCS]: TDocumentationOptions;
+}
+
+/** Own typed configuration service */
 @Injectable()
 export class ConfigService {
   private readonly logger = new Logger(ConfigService.name);
@@ -36,10 +43,6 @@ export class ConfigService {
 
   get httpConfiguration(): THttpOptions {
     return this.configService.get(CCONFIG_KEY_HTTP);
-  }
-
-  get APP_PORT(): number {
-    return this.httpConfiguration.port;
   }
 
   get authModuleOptions(): IAuthModuleOptions {

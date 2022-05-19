@@ -1,11 +1,15 @@
 import { registerAs } from '@nestjs/config';
 import { utilities } from 'nest-winston';
 import * as winston from 'winston';
+import { process_env } from '../config.utils';
 
-export type TLoggerOptions = winston.LoggerOptions;
+/** LoggerOptions of the application */
+export type TLoggerOptions = winston.LoggerOptions & { logRequests: boolean };
 
+/** LoggerOptions key in the confguration */
 export const CCONFIG_KEY_LOGGER = 'logger';
 
+/** Registers the LoggerOptions in the confguration */
 export default registerAs(
   CCONFIG_KEY_LOGGER,
   (): TLoggerOptions => ({
@@ -21,6 +25,6 @@ export default registerAs(
       }),
       // other transports...
     ],
-    // other options
+    logRequests: !!process_env('LOG_REQUESTS'),
   }),
 );

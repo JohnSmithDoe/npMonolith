@@ -42,6 +42,7 @@ describe('ConfigService', () => {
   it('should validate a correct config', () => {
     const config: IEnvironmentVariables = {
       APP_PORT: 1234,
+      APP_NAME: 'MyApp',
       DB_NAME: 'db',
       APP_SECRET: 'sadfa',
       APP_SESSION_SECRET: 'asdfasdf',

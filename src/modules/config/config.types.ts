@@ -10,6 +10,7 @@ export interface IEnvironmentVariables {
   APP_SECRET: string;
   APP_SESSION_SECRET: string;
   APP_PORT: number;
+  APP_NAME?: string;
   DB_NAME: string;
 
   SERVE_DOC?: boolean;

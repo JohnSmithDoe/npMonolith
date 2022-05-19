@@ -4,7 +4,7 @@ import { ENODE_ENV } from '../../common/consts';
 import { ESupportedDBTypes, IEnvironmentVariables } from './config.types';
 
 /** Dto to validate the current environment variables */
-class EnvironmentVariablesDto implements IEnvironmentVariables {
+class EnvironmentVariablesDto implements Required<IEnvironmentVariables> {
   @Expose()
   @IsEnum(ENODE_ENV)
   NODE_ENV: ENODE_ENV;
@@ -17,6 +17,11 @@ class EnvironmentVariablesDto implements IEnvironmentVariables {
   @IsNumber()
   @Transform(({ value }) => +value)
   APP_PORT: number;
+
+  @Expose()
+  @IsString()
+  @IsOptional()
+  APP_NAME: string;
 
   @Expose()
   @IsString()
@@ -45,11 +50,17 @@ class EnvironmentVariablesDto implements IEnvironmentVariables {
   @Expose()
   @IsOptional()
   @IsString()
-  SERVE_DOC_PATH?: string;
+  SERVE_DOC_PATH: string;
 
   @Expose()
   @IsOptional()
-  SERVE_DOC_ROOT?: string;
+  SERVE_DOC_ROOT: string;
+
+  @Expose()
+  @IsOptional()
+  @IsBoolean()
+  @Transform(({ value }) => !(value === 'false'))
+  LOG_REQUESTS: boolean;
 }
 
 /** Uses the class-transformer and the EnvironmentVariablesDto to validate the current environment */

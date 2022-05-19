@@ -1,4 +1,9 @@
-import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  Logger,
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+} from '@nestjs/common';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { WinstonModule } from 'nest-winston';
@@ -48,9 +53,9 @@ export class AppModule implements NestModule {
    * Adds http request logging if LOG_REQUESTS is set in environment
    */
   configure(consumer: MiddlewareConsumer) {
-    this.logger.log('Configure app module');
+    this.logger.log('Configuring AppModule');
     if (this.config.loggerConfiguration.logRequests) {
-      this.logger.log('Configure request middleware');
+      this.logger.log('Configure request logging middleware');
       consumer.apply(RequestLoggerMiddleware).forRoutes('*');
     }
   }

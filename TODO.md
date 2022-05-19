@@ -1,7 +1,7 @@
 ## Todos
 
 * More Logging with log level
-* Check Error-Handling for HttpExceptionFilter??
+* Check Error-Handling for HttpExceptionFilter and EntityNotFoundFilter / interceptor...
 * Users-Module
   * Controller
   * Testing

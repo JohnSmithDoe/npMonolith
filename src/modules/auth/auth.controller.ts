@@ -1,10 +1,25 @@
-import { Body, Controller, Get, Post, Request, UseGuards, UseInterceptors } from '@nestjs/common';
-import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
+import {
+  ApiCreatedResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { EntityNotFoundError } from 'typeorm';
 import { ApiSecuredOkResponse } from '../../common/decorators/swagger/api-secured-ok-response.decorator';
 import { SerializeRespondInterceptor } from '../../common/interceptors/serialize-respond.interceptor';
 import { CurrentUser } from '../users/decorators/current-user.decorator';
 import { UserResponseDto } from '../users/dtos/res/user-response.dto';
-import { IUser } from '../users/entities/user.entity';
+import {
+  IUser,
+  User,
+} from '../users/entities/user.entity';
 import { AuthService } from './auth.service';
 import { Public } from './decorators/public.decorator';
 import { LoginDto } from './dtos/login.dto';
@@ -62,5 +77,15 @@ export class AuthController {
   })
   whoami(@CurrentUser() user: IUser) {
     return user;
+  }
+  // TODO: debug only
+  @Public()
+  @Get('whoamio')
+  @ApiSecuredOkResponse({
+    description: 'Returns the current user from the request',
+    type: UserResponseDto,
+  })
+  whoamio(@CurrentUser() user: IUser) {
+    throw new EntityNotFoundError(User, 'test');
   }
 }

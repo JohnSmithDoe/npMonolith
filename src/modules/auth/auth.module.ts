@@ -1,4 +1,9 @@
-import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  Logger,
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+} from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { PassportModule } from '@nestjs/passport';
 import * as session from 'express-session';
@@ -43,6 +48,7 @@ export class AuthModule implements NestModule {
 
   /** Apply Session handling and Passport to the express handlers */
   configure(consumer: MiddlewareConsumer): any {
+    this.logger.log('Configuring AuthModule');
     const sessionOptions = this.configService.authSessionOptions;
     consumer.apply(session(sessionOptions)).forRoutes('*');
     consumer.apply(passport.initialize()).forRoutes('*');

@@ -1,4 +1,10 @@
-import { BadRequestException, Injectable, Logger, NotAcceptableException, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotAcceptableException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { compare, hash } from 'bcrypt';
 import { EUserRoles, IUser } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
@@ -47,6 +53,7 @@ export class AuthService {
     password,
   }: LoginDto): Promise<IUser> {
     const user = await this.usersService.findOneByEmail(email);
+    await this.usersService.findOne(234234234234);
     if (!user) {
       throw new NotAcceptableException('User not found');
     }

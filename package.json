@@ -25,7 +25,9 @@
     "doc:watch": "npm run doc:gen -- -w -s",
     "lint": "eslint \"{src,test}/**/*.ts\" ",
     "lint:fix": "npm run lint -- \"--fix\"",
-    "clean:up": "rimraf documentation dist coverage"
+    "clean:up": "rimraf documentation dist coverage",
+    "prechangelog:gen": "rimraf CHANGELOG.md",
+    "changelog:gen": "npx generate-changelog"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

@@ -1,6 +1,8 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { AppModule } from './app.module';
 import { EntityNotFoundFilter } from './common/filters/entity-not-found.filter';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import { EntityNotFoundInterceptor } from './common/interceptors/entity-not-found.interceptor';
@@ -61,4 +63,11 @@ export function setupApplication(
    *     // app.use(csurf({ cookie: true })); FIXME: does not work, but i still do not know why
    *     app.use(csrfErrorHandler);
    */
+}
+
+export async function bootstrap() {
+  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+  const config: ConfigService = app.get<ConfigService>(ConfigService);
+  setupApplication(app, config);
+  await app.listen(config.httpConfiguration.port);
 }

@@ -1,12 +1,12 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { isDevelopment } from '../../../common/utils';
+import { isDevelopment, isTest } from '../../../common/utils';
 import { ESupportedDBTypes } from '../config.types';
 import { process_env } from '../config.utils';
 
 const CORM_MIGRATIONS_DIR = 'src/db/migrations/';
 const CORM_MIGRATIONS_FILES = 'src/db/migrations/*.js';
-const CORM_ENTITIES = isDevelopment() ? ['**/*.entity.js'] : ['**/*.entity.ts'];
+const CORM_ENTITIES = isTest() ? ['**/*.entity.ts'] : ['**/*.entity.js'];
 
 /** Database Connection Options of the application */
 export type TConnectionOptions = TypeOrmModuleOptions;

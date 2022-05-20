@@ -5,7 +5,9 @@
 * Users-Module
   * Controller
   * Testing
-
+* Electron
+  * Running without NODE_ENV is a bit tricky
+  * Splash build 
 * CI/CD Deploy to docker, ansible? compose?
   * semantic-release....
   * Production env

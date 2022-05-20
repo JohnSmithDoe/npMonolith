@@ -3,6 +3,9 @@
 /environment
 /documentation
 
+#electron
+/out
+
 # compiled output
 /dist
 /node_modules
